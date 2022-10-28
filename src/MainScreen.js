@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text, View, StyleSheet, Button, TouchableOpacity, Image} from "react-native";
+import {Text, View, StyleSheet, Platform, StatusBar, TouchableOpacity, Image} from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
 const MainScreen = ({navigation}) => {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
 
        <TouchableOpacity>
           <Ionicons name="person" size={26} color="#00FFFF" />
@@ -19,13 +20,18 @@ const MainScreen = ({navigation}) => {
         {/* <Image style={styles.img1} source={require('../src/img/AQUA.png')} /> */}
           <Text style={styles.txt}>MONITOR</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Control')}>
         {/* <Image style={styles.img1} source={require('../src/img/AquaSymbol.png')} /> */}
           <Text style={styles.txt}>CONTROL</Text>
         </TouchableOpacity>
         </View>
 
-      </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Progress')}>
+          <Text style={{color: "red"}}>Progress</Text>
+        </TouchableOpacity>
+
+      </SafeAreaView>
     );
 
 };
@@ -41,8 +47,6 @@ MainScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        paddingTop:30,
-        paddingLeft:10,
         backgroundColor:"black",
      },
      txt1: {
