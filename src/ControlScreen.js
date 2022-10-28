@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import {Text, View, StyleSheet, Switch, Image} from "react-native";
-import ToggleSwitch from 'toggle-switch-react-native'
-
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ToggleSwitch from 'toggle-switch-react-native';
+import { StatusBar } from "expo-status-bar";
 
 const ControlScreen = () => {
 
@@ -34,21 +35,24 @@ const ControlScreen = () => {
        };
 
     return (
-        <View style = {styles.container}>
+        <SafeAreaView style = {styles.container}>
         <Image style={styles.img} source={require('../src/img/AQUA.png')} />
         <View style = {styles.heading}>
           <Image style={styles.img2} source={require('../src/img/AquaSymbol.png')} />
           <Text style={styles.txt1}>CONTROL PANEL</Text>
         </View>
         <View style={styles.innerView}>
-        <Text style={styles.txt}>SPOUT 1</Text>
+        {/* <Text style={styles.txt}>SPOUT 1</Text> */}
 
-            <Switch 
-                trackColor={{false:'grey', true:'#00FFFF'}}
-                thumbColor={isEnable ? '#f4f3f4' : '#f4f3f4'}
-                onValueChange={toggleSwitch}
-                value={isEnable}
-            />
+        <ToggleSwitch
+           isOn={false}
+           onColor="#00FFFF"
+           offColor="grey"
+           label="SPOUT 1"
+           labelStyle={{color:"#00FFFF", fontSize: 20}}
+           size="medium"
+           onToggle={isOn => {isOn}}
+/>
         </View>
         <View style={styles.innerView}>
         <Text style={styles.txt}>SPOUT 2</Text>
@@ -74,7 +78,7 @@ const ControlScreen = () => {
 
         </View>
         <View style={styles.innerView}>
-        <Text style={styles.txt}>SPOUT 4</Text>
+        <Text style={styles.txt}>OVER RIDE</Text>
 
             <Switch 
                 trackColor={{false:'grey', true:'#00FFFF'}}
@@ -82,8 +86,9 @@ const ControlScreen = () => {
                 onValueChange={toggleSwitch4}
                 value={isEnable4}
             />    
-        </View>     
-        </View>
+        </View>  
+        <StatusBar style="light" />   
+        </SafeAreaView>
     );
 };
 
@@ -98,7 +103,6 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems: 'center',
         backgroundColor:"black",
-        marginTop: 70
     },
     img: {
         height:100,
@@ -121,7 +125,6 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         paddingTop: 30
     },
-
     txt: {
         fontSize: 20,
         color:"#00FFFF",
