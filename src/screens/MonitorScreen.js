@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Text, View, StyleSheet, Image, Animated, TouchableOpacity} from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from "expo-status-bar";
-import Speedometer from "react-native-speedometer-chart";
+import ProgressCircle from "react-native-progress-circle";
 import {db} from '../firebase/config';
 import { ref, onValue, set } from 'firebase/database';
 
@@ -16,13 +16,16 @@ const MonitorScreen = () => {
 
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();    
-      console.log('distance: ', data.gesture);
+      console.log('flow: ', data.FlowRate);
+      console.log('main: ', data.mainTank );
+      console.log('rain: ', data.rainTank );
+      console.log(data);
       setData(data);
     })
   },[]);
 
   const limit = () => {
-  if(data.totalMilliLitres>3000) {
+  if(data.TotalMilliLitres>3000) {
     return (
       <Text>Your daily consumption limit has exceeded!</Text>
     )
@@ -40,34 +43,18 @@ const MonitorScreen = () => {
      <View style={styles.innerView}>
         <Text style={styles.txt}>Flow Rate</Text>
         <View style={styles.progress}>
-          <Speedometer
-            value={data.flowRate}
-            totalValue={50}
-            internalColor="#00FFFF"
-            innerColor="black"
-            outerColor="grey"
-            outerStroke="#da2128"
-            showText
-            text={`${data.flowRate}L/min`}
-            textStyle={{ color: "#00FFFF", fontWeight: "bold"}}
-          /> 
+        <ProgressCircle limit={100} percent={data.FlowRate} radius={70} borderWidth={8} color="#00ffff" shadowColor="#999" bgColor="black">
+          <Text style={{ fontSize: 18, color: "#00ffff" }}>{`${data.FlowRate}ml/min`}</Text>
+        </ProgressCircle>
         </View>
      </View>
 
         <View style={styles.innerView}>  
           <Text style={styles.txt}>Total consumption</Text>
           <View style={styles.progress}>
-          <Speedometer
-            value={data.totalMilliLitres}
-            totalValue={5000}
-            internalColor="#00FFFF"
-            innerColor="black"
-            outerColor="grey"
-            outerStroke="#da2128"
-            showText
-            text={`${data.totalMilliLitres}ml`}
-            textStyle={{ color: "#00FFFF", fontWeight: "bold"}}
-          /> 
+          <ProgressCircle limit={500} percent={data.TotalMilliLitres} radius={70} borderWidth={8} color="#00ffff" shadowColor="#999" bgColor="black">
+          <Text style={{ fontSize: 18, color: "#00ffff" }}>{`${data.TotalMilliLitres}ml`}</Text>
+        </ProgressCircle> 
           </View>
         </View> 
         <Text style={styles.limit}>{limit()}</Text>
