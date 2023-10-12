@@ -43,7 +43,7 @@ const MonitorScreen = () => {
      <View style={styles.innerView}>
         <Text style={styles.txt}>Flow Rate</Text>
         <View style={styles.progress}>
-        <ProgressCircle limit={100} percent={data.FlowRate} radius={70} borderWidth={8} color="#00ffff" shadowColor="#999" bgColor="black">
+        <ProgressCircle limit={200} percent={(data.FlowRate/200)*100} radius={70} borderWidth={8} color="#00ffff" shadowColor="#999" bgColor="black">
           <Text style={{ fontSize: 18, color: "#00ffff" }}>{`${data.FlowRate}ml/min`}</Text>
         </ProgressCircle>
         </View>
@@ -52,8 +52,8 @@ const MonitorScreen = () => {
         <View style={styles.innerView}>  
           <Text style={styles.txt}>Total consumption</Text>
           <View style={styles.progress}>
-          <ProgressCircle limit={500} percent={data.TotalMilliLitres} radius={70} borderWidth={8} color="#00ffff" shadowColor="#999" bgColor="black">
-          <Text style={{ fontSize: 18, color: "#00ffff" }}>{`${data.TotalMilliLitres}ml`}</Text>
+          <ProgressCircle limit={5000} percent={(data.TotalMilliLitres/5000)*100} radius={70} borderWidth={8} color="#00ffff" shadowColor="#999" bgColor="black">
+            <Text style={{ fontSize: 18, color: "#00ffff" }}>{`${data.TotalMilliLitres}ml`}</Text>
         </ProgressCircle> 
           </View>
         </View> 
