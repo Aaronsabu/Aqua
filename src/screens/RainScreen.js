@@ -21,14 +21,12 @@ const RainScreen = () => {
 
    const [data, setData] = useState([]);
    const starCountRef = ref(db);
+   console.log("rain",data["rainTank "])
  
    useEffect(() => {
  
      onValue(starCountRef, (snapshot) => {
-       const data = snapshot.val();    
-       console.log('main: ', data.main_tank);
-       console.log('gesture: ', data.gesture);
-       console.log('rain: ', data.rain_tank);
+       const data = snapshot.val();  
        setData(data);
      })
    },[]);
@@ -53,18 +51,13 @@ const RainScreen = () => {
           </View>  
           <Text style={styles.txt2}>Rain Water Tank Level</Text>
           <View>
-          <Tank percentage={20-data.main_tank} />
+          <Tank percentage={20-(data["rainTank "])} />
           </View>
           <StatusBar style="light" />  
         </SafeAreaView>
     );
 };
 
-RainScreen.navigationOptions = () => {
-  return {
-    headerShown: false,
-  };
-};
 
 const styles = StyleSheet.create({
     container : {
